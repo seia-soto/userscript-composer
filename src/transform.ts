@@ -21,8 +21,7 @@ export const bundle = async (additionalOptions: esbuild.BuildOptions) => {
  */
 export const build = async (source: string, additionalOptions: esbuild.TransformOptions) => {
 	const built = await esbuild.transform(source, {
-		// Use cjs to avoid top level import
-		format: 'cjs',
+		format: 'iife',
 		platform: 'browser',
 		treeShaking: true,
 		...additionalOptions,

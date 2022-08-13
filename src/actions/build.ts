@@ -63,7 +63,6 @@ export const action = async (options: IBaseOptions) => {
 				const out = await build(
 					script.content,
 					{
-						format: 'iife',
 						loader: script.path.split('.').pop() as Loader,
 					},
 				);
