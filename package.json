@@ -10,7 +10,7 @@
     "lint": "eslint --ext .ts src"
   },
   "keywords": [],
-  "author": "",
+  "author": "HoJeong Go <seia@outlook.kr>",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.7.3",
