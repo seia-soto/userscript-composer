@@ -3,7 +3,8 @@
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import {bundle} from './transform.js';
+import {build, bundle} from './transform.js';
+import {head, parse, stringify} from './userscript.js';
 import {temporal} from './workdir.js';
 
 /**
@@ -19,6 +20,16 @@ export const pack = async (
     scripts: string[],
   },
 ) => {
+	// Head
+	const config = parse(components.head);
+
+	config.match ??= [];
+
+	if (typeof config.match === 'string') {
+		config.match = [config.match];
+	}
+
+	// Body
 	const [workdir, remove] = await temporal();
 	const sourceFile = path.join(workdir, 'packed.ts');
 	const outFile = path.join(workdir, 'out.js');
@@ -27,8 +38,35 @@ export const pack = async (
 		.replace(
 			// Consider build output of the esbuild
 			'"__composer_positioner__scripts"',
-			components.scripts
-				.map(script => `()=>{${script}}`)
+			(
+				await Promise.all(
+					components.scripts
+						.map(async script => {
+							// Get matches
+							const header = parse(head(script));
+							let matches: string | string[] = header.match ?? '';
+
+							if (typeof matches === 'string') {
+								matches = [matches];
+							}
+
+							const patterns = matches
+								.map(match => {
+									if ((config.match as string[]).indexOf(match) < 0) {
+										(config.match as string[]).push(match);
+									}
+
+									return '"' + match + '"';
+								})
+								.join(',');
+
+							// Build
+							const transformed = await build(script, {});
+
+							return `{matches: [${patterns}],fx:()=>{${transformed}}}`;
+						}),
+				)
+			)
 				.join(','),
 		);
 
@@ -46,5 +84,5 @@ export const pack = async (
 
 	await remove();
 
-	return components.head + '\n' + out;
+	return stringify(config) + '\n' + out;
 };

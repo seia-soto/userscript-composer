@@ -1,7 +1,7 @@
 // ==UserScript==
 // @encoding utf-8
-// @name Testflight
-// @description userscript-composer test header.
+// @name Test TypeScript
+// @description Nothing else.
 // @author HoJeong Go <seia@outlook.kr>
 // @version 0
 //
@@ -10,3 +10,13 @@
 //
 // @match https://example.com/*
 // ==/UserScript==
+
+export interface ISample {
+  b: string
+}
+
+const a: ISample = {
+	b: 'test-typescript',
+};
+
+console.log(JSON.stringify(a.b));

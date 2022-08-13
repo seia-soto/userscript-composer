@@ -10,7 +10,7 @@ export enum EUserScriptHeaderTokens {
  * @param source The user-script source
  * @returns The text only including user-script header
  */
-export const head = async (source: string) => {
+export const head = (source: string) => {
 	const range = [
 		source.indexOf(EUserScriptHeaderTokens.START),
 		source.indexOf(EUserScriptHeaderTokens.END),
@@ -23,21 +23,23 @@ export const head = async (source: string) => {
 	return source.slice(range[0], range[1] + EUserScriptHeaderTokens.END.length);
 };
 
-export interface IUserScriptHeaderHints extends Record<string, string | string[]> {
+export type TUserScriptHeaderValue = string | string[]
+
+export interface IUserScriptHeaderHints extends Record<string, TUserScriptHeaderValue> {
   // eslint-disable-next-line no-undef
   encoding: BufferEncoding,
-  name: string,
-  description: string,
-  author: string,
-  version: string,
-  grant: string,
+  name: TUserScriptHeaderValue,
+  description: TUserScriptHeaderValue,
+  author: TUserScriptHeaderValue,
+  version: TUserScriptHeaderValue,
+  grant: TUserScriptHeaderValue,
   'run-at': string,
-  match: string,
-  namespace: string,
-  homepageURL: string,
-  supportURL: string,
-  updateURL: string,
-  downloadURL: string
+  match: TUserScriptHeaderValue,
+  namespace: TUserScriptHeaderValue,
+  homepageURL: TUserScriptHeaderValue,
+  supportURL: TUserScriptHeaderValue,
+  updateURL: TUserScriptHeaderValue,
+  downloadURL: TUserScriptHeaderValue
 }
 
 export type TUserScriptHeader = Partial<IUserScriptHeaderHints>
@@ -56,7 +58,7 @@ export const parse = (header: string) => {
 
 		const suffix = line.indexOf(' ', prefix);
 
-		const key = line.slice(prefix + 1, suffix - 1);
+		const key = line.slice(prefix + 1, suffix);
 		let value = line.slice(suffix + 1).trim();
 
 		if (!key) {
@@ -89,7 +91,7 @@ export const stringify = (config: TUserScriptHeader) => {
 
 	for (let i = 0; i < keys.length; i++) {
 		const key = keys[i];
-		const value = config[key] as string | string[];
+		const value = config[key] as TUserScriptHeaderValue;
 
 		if (Array.isArray(value)) {
 			for (const v of value) {

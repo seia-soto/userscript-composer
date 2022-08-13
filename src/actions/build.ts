@@ -1,8 +1,10 @@
+import type {Loader} from 'esbuild';
 import fs from 'node:fs/promises';
 import path from 'path';
 import {pack} from '../packer.js';
 import {build, bundle} from '../transform.js';
 import {IBaseOptions} from '../types.js';
+import {head} from '../userscript.js';
 import * as fse from '../utils/fse.js';
 
 export const action = async (options: IBaseOptions) => {
@@ -25,10 +27,15 @@ export const action = async (options: IBaseOptions) => {
 					await fs.mkdir(outdir, {recursive: true});
 				}
 
-				return bundle({
+				await bundle({
 					entryPoints: [file],
 					outfile,
 				});
+
+				const header = head((await fs.readFile(file, 'utf8')).toString());
+				const transformed = (await fs.readFile(outfile, 'utf8')).toString();
+
+				await fs.writeFile(outfile, header + '\n' + transformed, 'utf8');
 			}),
 	);
 
@@ -37,10 +44,17 @@ export const action = async (options: IBaseOptions) => {
 	const outfile = path.join(options.out, options.name + '.user.js');
 	const transformed = await Promise.all(
 		scripts
-			.map(async file => build(
-				(await fs.readFile(file)).toString(),
-				{},
-			)),
+			.map(async file => {
+				const content = (await fs.readFile(file)).toString();
+				const out = await build(
+					(await fs.readFile(file)).toString(),
+					{
+						loader: file.split('.').pop() as Loader,
+					},
+				);
+
+				return head(content) + '\n' + out;
+			}),
 	);
 
 	const packed = await pack(
