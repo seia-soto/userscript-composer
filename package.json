@@ -5,13 +5,18 @@
   "main": "out/index.js",
   "type": "module",
   "scripts": {
-    "start": "pnpm build && node .",
-    "build": "esbuild `find src \\( -name '*.ts' \\)` --format=esm --platform=node --sourcemap=inline --outdir=out",
+    "start": "pnpm build && node out/cli.js",
+    "build": "pnpm build:source && pnpm build:type",
+    "build:source": "rm -r out && esbuild `find src \\( -name '*.ts' \\)` --format=esm --platform=node --sourcemap=inline --outdir=out",
+    "build:type": "tsc",
     "lint": "eslint --ext .ts src"
   },
   "keywords": [],
   "author": "HoJeong Go <seia@outlook.kr>",
   "license": "ISC",
+  "bin": {
+    "userscript-composer": "out/cli.js"
+  },
   "devDependencies": {
     "@types/node": "^18.7.3",
     "@types/picomatch": "^2.3.0",

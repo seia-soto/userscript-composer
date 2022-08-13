@@ -1,0 +1,5 @@
+/.userscript-composer
+/dist
+/node_modules
+/scripts
+/src
