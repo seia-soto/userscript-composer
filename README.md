@@ -115,7 +115,7 @@ Options:
 ## `userscript-composer build`
 
 Generates composed userscript and standalone userscripts.
-For production use, I recommend add `--minify`.
+For production use, I recommend adding `--minify`.
 
 # Development
 
