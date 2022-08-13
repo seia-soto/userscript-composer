@@ -9,6 +9,7 @@ specifiers:
   esbuild: ^0.15.2
   eslint: ^8.21.0
   eslint-config-xo: ^0.41.0
+  is-number: ^7.0.0
   picomatch: ^2.3.1
   terser: ^5.14.2
   typescript: ^4.7.4
@@ -26,6 +27,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.33.0_qugx7qdu5zevzvxaiqyxfiwquq
   eslint: 8.21.0
   eslint-config-xo: 0.41.0_eslint@8.21.0
+  is-number: 7.0.0
   typescript: 4.7.4
 
 packages:

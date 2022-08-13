@@ -34,7 +34,7 @@ export const pack = async (
 
 	// Body
 	const [workdir, remove] = await temporal();
-	const sourceFile = path.join(workdir, 'packed.ts');
+	const sourceFile = path.join(workdir, 'packed.js');
 	const outFile = path.join(workdir, 'out.js');
 
 	const packed = template
@@ -68,12 +68,10 @@ export const pack = async (
 											strictSlashes: true,
 										})
 										.toString()
-										// Replace manual slashes at the front and back
-										.slice(1, -1)
 										// Allow zero width for star (*)
 										.replace(/\(\?=\.\)/g, '(?=.?)');
 
-									return new RegExp(matcher);
+									return matcher;
 								})
 								.join(',');
 
@@ -95,9 +93,6 @@ export const pack = async (
 			sourceFile,
 		],
 		outfile: outFile,
-		external: [
-			'path', // Fix for picomatch
-		],
 		minify,
 	});
 	const out = await fs.readFile(outFile, 'utf8');

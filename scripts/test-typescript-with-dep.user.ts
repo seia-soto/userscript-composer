@@ -11,10 +11,10 @@
 // @match https://example.com/*
 // ==/UserScript==
 
-import picomatch from 'picomatch';
+import isNumber from 'is-number';
 
 console.log(
-	picomatch('y*')('yes')
+	isNumber('1')
 		? 'success'
 		: 'failure',
 );
