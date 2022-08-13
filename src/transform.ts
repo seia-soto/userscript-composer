@@ -28,3 +28,35 @@ export const build = async (source: string, additionalOptions: esbuild.Transform
 		...additionalOptions,
 	});
 };
+
+/**
+ * Wrap and compose scripts to be injected to base template
+ * @param scripts The source scripts completed post-processing
+ * @returns Composed scripts fits inside Array
+ */
+export const compose = (scripts: string[]) => {
+	const map = scripts
+		.map(script => `()=>{${script}}`)
+		.join(',');
+
+	return map;
+};
+
+/**
+ * Inject user-script fragments into complete user-script
+ * @param template The template script to be injected
+ * @param components The components to compose with template script
+ * @returns The complete user-script packed with components
+ */
+export const pack = async (
+	template: string,
+	components: {
+		head: string,
+		scripts: string[],
+	},
+) => {
+	const out = template
+		.replace('/* __composer_positioner__scripts */', compose(components.scripts));
+
+	return components.head + '\n' + out;
+};
