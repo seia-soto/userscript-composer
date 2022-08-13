@@ -59,7 +59,20 @@ export const pack = async (
 										(config.match as string[]).push(match);
 									}
 
-									return picomatch.makeRe(match);
+									// To reach the accuracy of userscript managers, might need to implement own builder.
+									const matcher = picomatch
+										.makeRe(match, {
+											dot: true,
+											regex: true,
+											strictSlashes: true,
+										})
+										.toString()
+										// Replace manual slashes at the front and back
+										.slice(1, -1)
+										// Allow zero width for star (*)
+										.replace(/\(\?=\.\)/g, '(?=.?)');
+
+									return new RegExp(matcher);
 								})
 								.join(',');
 
