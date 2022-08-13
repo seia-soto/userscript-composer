@@ -46,11 +46,11 @@ export const create = async (name: string = root) => {
 };
 
 /**
- * Create new temporal directory under application working directory
+ * Create new temporal directory under application working directory and return callback function to remove it
  * @param name The name of temporal directory to create under application working directory
  * @returns The path of temporal directory
  */
-export const temporal = async (name: string = Math.random().toString(36).slice(2)): Promise<string> => {
+export const temporal = async (name: string = Math.random().toString(36).slice(2)): Promise<[string, () => Promise<void>]> => {
 	const location = path.join(cwd, root, name);
 
 	if (await isDirectory(location)) {
@@ -59,5 +59,9 @@ export const temporal = async (name: string = Math.random().toString(36).slice(2
 
 	await fs.mkdir(location, {recursive: true});
 
-	return location;
+	/* Callback function to empty the directory */
+	return [
+		location,
+		() => fs.rm(location, {recursive: true}),
+	];
 };
