@@ -1,7 +1,7 @@
 import type {Loader} from 'esbuild';
 import fs from 'node:fs/promises';
 import path from 'path';
-import {compress} from '../minify.js';
+import {compress} from '../compressor.js';
 import {pack} from '../packer.js';
 import {build, bundle} from '../transform.js';
 import {IBaseOptions} from '../types.js';

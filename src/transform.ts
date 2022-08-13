@@ -10,6 +10,7 @@ export const bundle = async (additionalOptions: esbuild.BuildOptions) => {
 		platform: 'browser',
 		treeShaking: true,
 		bundle: true,
+		external: ['fs', 'path'],
 		...additionalOptions,
 	});
 };

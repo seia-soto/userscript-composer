@@ -4,7 +4,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import picomatch from 'picomatch';
-import {compress} from './minify.js';
+import {compress} from './compressor.js';
 import {build, bundle} from './transform.js';
 import {head, parse, stringify} from './userscript.js';
 import {temporal} from './workdir.js';
@@ -64,7 +64,9 @@ export const pack = async (
 								.join(',');
 
 							// Build
-							const transformed = await build(script, {});
+							const transformed = await build(script, {
+								target: 'es2022',
+							});
 
 							return `{matches: [${patterns}],fx:()=>{${transformed}}}`;
 						}),
@@ -82,6 +84,7 @@ export const pack = async (
 		external: [
 			'path', // Fix for picomatch
 		],
+		minify,
 	});
 	const out = await fs.readFile(outFile, 'utf8');
 	const minified = minify
