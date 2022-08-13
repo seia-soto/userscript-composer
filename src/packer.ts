@@ -3,6 +3,7 @@
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {compress} from './minify.js';
 import {build, bundle} from './transform.js';
 import {head, parse, stringify} from './userscript.js';
 import {temporal} from './workdir.js';
@@ -19,6 +20,7 @@ export const pack = async (
     head: string,
     scripts: string[],
   },
+	minify: boolean,
 ) => {
 	// Head
 	const config = parse(components.head);
@@ -81,8 +83,11 @@ export const pack = async (
 		],
 	});
 	const out = await fs.readFile(outFile, 'utf8');
+	const minified = minify
+		? await compress(out, {})
+		: out;
 
 	await remove();
 
-	return stringify(config) + '\n' + out;
+	return stringify(config) + '\n' + minified;
 };

@@ -19,4 +19,4 @@ const a: ISample = {
 	b: 'test-typescript',
 };
 
-console.log(JSON.stringify(a.b));
+console.log(a.b);

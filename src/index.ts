@@ -15,6 +15,9 @@ cli
 	})
 	.option('--name [name]', 'Set the name of complete user-script', {
 		default: 'index',
+	})
+	.option('--minify', 'Minify the output for production use', {
+		default: false,
 	});
 
 cli

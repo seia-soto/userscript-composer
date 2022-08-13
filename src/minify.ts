@@ -6,7 +6,7 @@ import {minify, MinifyOptions} from 'terser';
  * @param additionalOptions Additional options to be applied to terser
  * @returns The minified source
  */
-export const process = async (source: string, additionalOptions: MinifyOptions) => {
+export const compress = async (source: string, additionalOptions: MinifyOptions) => {
 	/* eslint-disable camelcase */
 	const {code} = await minify(source, {
 		compress: {

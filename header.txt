@@ -7,6 +7,4 @@
 //
 // @grant none
 // @run-at document-start
-//
-// @match https://example.com/*
 // ==/UserScript==

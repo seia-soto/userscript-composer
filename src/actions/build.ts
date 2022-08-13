@@ -1,6 +1,7 @@
 import type {Loader} from 'esbuild';
 import fs from 'node:fs/promises';
 import path from 'path';
+import {compress} from '../minify.js';
 import {pack} from '../packer.js';
 import {build, bundle} from '../transform.js';
 import {IBaseOptions} from '../types.js';
@@ -41,8 +42,11 @@ export const action = async (options: IBaseOptions) => {
 
 				const header = head(script.content);
 				const transformed = (await fs.readFile(outfile, 'utf8')).toString();
+				const out = options.minify
+					? await compress(transformed, {})
+					: transformed;
 
-				await fs.writeFile(outfile, header + '\n' + transformed, 'utf8');
+				await fs.writeFile(outfile, header + '\n' + out, 'utf8');
 			}),
 	);
 
@@ -69,6 +73,7 @@ export const action = async (options: IBaseOptions) => {
 			head: (await fs.readFile(options.header)).toString(),
 			scripts: transformed,
 		},
+		options.minify,
 	);
 
 	await fs.writeFile(outfile, packed, 'utf8');
