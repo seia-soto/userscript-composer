@@ -64,6 +64,7 @@ export const pack = async (
 										.makeRe(match, {
 											dot: true,
 											regex: true,
+											nonegate: true,
 											strictSlashes: true,
 										})
 										.toString()

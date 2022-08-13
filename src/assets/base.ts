@@ -15,7 +15,7 @@ export interface IUserScript {
 
 	// Use allSettled to run fast as possible
 	await Promise.allSettled(
-		scripts.map(script => (async () => {
+		scripts.map(async script => {
 			for (const pattern of script.matches) {
 				if (pattern.test(document.location.href)) {
 					script.fx();
@@ -23,6 +23,6 @@ export interface IUserScript {
 					break;
 				}
 			}
-		})),
+		}),
 	);
 })();
