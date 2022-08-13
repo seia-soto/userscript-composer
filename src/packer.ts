@@ -3,6 +3,7 @@
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import picomatch from 'picomatch';
 import {compress} from './minify.js';
 import {build, bundle} from './transform.js';
 import {head, parse, stringify} from './userscript.js';
@@ -58,7 +59,7 @@ export const pack = async (
 										(config.match as string[]).push(match);
 									}
 
-									return '"' + match + '"';
+									return picomatch.makeRe(match);
 								})
 								.join(',');
 

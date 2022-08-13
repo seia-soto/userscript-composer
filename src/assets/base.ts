@@ -2,10 +2,8 @@
  * This is complete user-script template, doesn't including:
  * - user-script header
  */
-import picomatch from 'picomatch';
-
 export interface IUserScript {
-  matches: string[],
+  matches: RegExp[],
   fx: () => void
 }
 
@@ -19,7 +17,7 @@ export interface IUserScript {
 	await Promise.allSettled(
 		scripts.map(script => (async () => {
 			for (const pattern of script.matches) {
-				if (picomatch(pattern)(document.location.href)) {
+				if (pattern.test(document.location.href)) {
 					script.fx();
 
 					break;
