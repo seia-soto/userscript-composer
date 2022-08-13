@@ -1,0 +1,26 @@
+{
+  "name": "userscript-composer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild `find src \\( -name '*.ts' \\)` --format=esm --platform=node --outdir=out"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.7.3",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^8.21.0",
+    "eslint-config-xo": "^0.41.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "cac": "^6.7.12",
+    "esbuild": "^0.15.2"
+  }
+}
