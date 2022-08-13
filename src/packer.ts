@@ -8,7 +8,7 @@ import {head, parse, stringify} from './userscript.js';
 import {temporal} from './workdir.js';
 
 /**
- * Inject user-script fragments into complete user-script
+ * Inject JavaScript version of user-script fragments into complete user-script
  * @param template The template script to be injected
  * @param components The components to compose with template script
  * @returns The complete user-script packed with components

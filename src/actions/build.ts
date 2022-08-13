@@ -8,18 +8,25 @@ import {head} from '../userscript.js';
 import * as fse from '../utils/fse.js';
 
 export const action = async (options: IBaseOptions) => {
-	const scripts = (await fse.find(options.source))
+	const files = (await fse.find(options.source))
 		.filter(file => file.includes('.user.'));
+	const scripts = await Promise.all(
+		files
+			.map(async file => ({
+				path: file,
+				content: (await fs.readFile(file)).toString('utf8'),
+			})),
+	);
 
 	// Build standalone scripts
 	const standalones = path.join(options.out, 'standalones');
 
 	await Promise.allSettled(
 		scripts
-			.map(async file => {
+			.map(async script => {
 				const outfile = path.join(
 					standalones,
-					path.relative(options.source, file),
+					path.relative(options.source, script.path),
 				);
 				const outdir = path.dirname(outfile);
 
@@ -28,11 +35,11 @@ export const action = async (options: IBaseOptions) => {
 				}
 
 				await bundle({
-					entryPoints: [file],
+					entryPoints: [script.path],
 					outfile,
 				});
 
-				const header = head((await fs.readFile(file, 'utf8')).toString());
+				const header = head(script.content);
 				const transformed = (await fs.readFile(outfile, 'utf8')).toString();
 
 				await fs.writeFile(outfile, header + '\n' + transformed, 'utf8');
@@ -44,16 +51,15 @@ export const action = async (options: IBaseOptions) => {
 	const outfile = path.join(options.out, options.name + '.user.js');
 	const transformed = await Promise.all(
 		scripts
-			.map(async file => {
-				const content = (await fs.readFile(file)).toString();
+			.map(async script => {
 				const out = await build(
-					(await fs.readFile(file)).toString(),
+					script.content,
 					{
-						loader: file.split('.').pop() as Loader,
+						loader: script.path.split('.').pop() as Loader,
 					},
 				);
 
-				return head(content) + '\n' + out;
+				return head(script.content) + '\n' + out;
 			}),
 	);
 
