@@ -2,4 +2,7 @@
 /dist
 /node_modules
 /scripts
+/dist
+/out
 /src
+/header.txt
