@@ -18,6 +18,9 @@ cli
 	})
 	.option('--minify', 'Minify the output for production use', {
 		default: false,
+	})
+	.option('--clean', 'Clean the build directory before build', {
+		default: false,
 	});
 
 cli

@@ -3,5 +3,6 @@ export interface IBaseOptions {
   out: string,
   header: string,
   name: string,
-  minify: boolean
+  minify: boolean,
+  clean: boolean
 }

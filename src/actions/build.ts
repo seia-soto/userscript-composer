@@ -9,6 +9,10 @@ import {head} from '../userscript.js';
 import * as fse from '../utils/fse.js';
 
 export const action = async (options: IBaseOptions) => {
+	if (options.clean) {
+		await fs.rm(options.out, {recursive: true});
+	}
+
 	const files = (await fse.find(options.source))
 		.filter(file => file.includes('.user.'));
 	const scripts = await Promise.all(
