@@ -1,7 +1,7 @@
 {
   "name": "userscript-composer",
   "version": "0.0.1",
-  "description": "Ability to compose userscripts to be unified.",
+  "description": "Ability to compose userscripts for unified distribution.",
   "main": "out/index.js",
   "type": "module",
   "scripts": {
@@ -11,7 +11,10 @@
     "build:type": "tsc",
     "lint": "eslint --ext .ts src"
   },
-  "keywords": [],
+  "keywords": [
+    "userscript",
+    "build tool"
+  ],
   "author": "HoJeong Go <seia@outlook.kr>",
   "license": "ISC",
   "bin": {
