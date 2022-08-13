@@ -30,16 +30,3 @@ export const build = async (source: string, additionalOptions: esbuild.Transform
 
 	return built.code;
 };
-
-/**
- * Wrap and compose scripts to be injected to base template
- * @param scripts The source scripts completed post-processing
- * @returns Composed scripts fits inside Array
- */
-export const compose = (scripts: string[]) => {
-	const map = scripts
-		.map(script => `()=>{${script}}`)
-		.join(',');
-
-	return map;
-};

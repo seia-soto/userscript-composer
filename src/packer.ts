@@ -3,7 +3,7 @@
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import {bundle, compose} from './transform.js';
+import {bundle} from './transform.js';
 import {temporal} from './workdir.js';
 
 /**
@@ -24,7 +24,13 @@ export const pack = async (
 	const outFile = path.join(workdir, 'out.js');
 
 	const packed = template
-		.replace('/* __composer_positioner__scripts */', compose(components.scripts));
+		.replace(
+			// Consider build output of the esbuild
+			'"__composer_positioner__scripts"',
+			components.scripts
+				.map(script => `()=>{${script}}`)
+				.join(','),
+		);
 
 	await fs.writeFile(sourceFile, packed, 'utf8');
 	await bundle({

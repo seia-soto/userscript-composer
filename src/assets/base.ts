@@ -10,7 +10,10 @@ export interface IUserScript {
 }
 
 (async () => {
-	const scripts: IUserScript[] = [/* __composer_positioner__scripts */];
+	const scripts: IUserScript[] = [
+		// @ts-expect-error
+		'__composer_positioner__scripts',
+	];
 
 	// Use allSettled to run fast as possible
 	await Promise.allSettled(
