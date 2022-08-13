@@ -2,7 +2,6 @@
  * This is complete user-script template, doesn't including:
  * - user-script header
  */
-
 import picomatch from 'picomatch';
 
 export interface IUserScript {

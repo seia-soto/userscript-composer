@@ -2,11 +2,12 @@
   "name": "userscript-composer",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "out/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild `find src \\( -name '*.ts' \\)` --format=esm --platform=node --outdir=out"
+    "start": "pnpm build && node .",
+    "build": "esbuild `find src \\( -name '*.ts' \\)` --format=esm --platform=node --sourcemap=inline --outdir=out",
+    "lint": "eslint --ext .ts src"
   },
   "keywords": [],
   "author": "",

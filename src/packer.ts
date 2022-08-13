@@ -32,6 +32,9 @@ export const pack = async (
 			sourceFile,
 		],
 		outfile: outFile,
+		external: [
+			'path', // Fix for picomatch
+		],
 	});
 	const out = await fs.readFile(outFile, 'utf8');
 

@@ -20,13 +20,15 @@ export const bundle = async (additionalOptions: esbuild.BuildOptions) => {
  * @param additionalOptions Additional options to apply to esbuild
  */
 export const build = async (source: string, additionalOptions: esbuild.TransformOptions) => {
-	await esbuild.transform(source, {
+	const built = await esbuild.transform(source, {
 		// Use cjs to avoid top level import
 		format: 'cjs',
 		platform: 'browser',
 		treeShaking: true,
 		...additionalOptions,
 	});
+
+	return built.code;
 };
 
 /**

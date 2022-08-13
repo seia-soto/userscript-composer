@@ -5,7 +5,7 @@
  */
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import fss from 'node:fs';
+import * as fse from './utils/fse.js';
 
 /**
  * The cached value of current working directory of host
@@ -18,15 +18,6 @@ export const cwd = process.cwd();
 export const root = '.userscript-composer';
 
 /**
- * Check if given path is directory
- * @param location The location of directory
- * @returns True if directory exists on location
- */
-export const isDirectory = async (location: string) =>
-	fss.existsSync(location)
-  && (await fs.stat(location)).isDirectory();
-
-/**
  * Create new "empty" working directory under current working directory
  * @param name The name to use for application working directory
  * @returns The location of application working directory
@@ -34,7 +25,7 @@ export const isDirectory = async (location: string) =>
 export const create = async (name: string = root) => {
 	const location = path.join(cwd, name);
 
-	if (await isDirectory(location)) {
+	if (await fse.isDirectory(location)) {
 		await fs.rm(location, {recursive: true});
 
 		return location;
@@ -53,7 +44,7 @@ export const create = async (name: string = root) => {
 export const temporal = async (name: string = Math.random().toString(36).slice(2)): Promise<[string, () => Promise<void>]> => {
 	const location = path.join(cwd, root, name);
 
-	if (await isDirectory(location)) {
+	if (await fse.isDirectory(location)) {
 		return temporal();
 	}
 
