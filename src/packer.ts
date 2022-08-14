@@ -45,7 +45,7 @@ export const batch = async (
  * @param matches Match fields in user-script header
  * @returns A stringified array of regular expressions to be embeded
  */
-export const patternize = async (matches: string[]) => {
+export const patternize = (matches: string[]) => {
 	const inline = matches
 		.map(match => {
 			// To reach the accuracy of userscript managers, might need to implement own builder.
