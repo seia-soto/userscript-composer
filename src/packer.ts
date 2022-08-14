@@ -54,11 +54,11 @@ export const patternize = (matches: string[]) => {
 					dot: true,
 					regex: true,
 					nonegate: true,
-					strictSlashes: true,
 				})
 				.toString()
 				// Allow zero width for star (*)
-				.replace(/\(\?=\.\)/g, '(?=.?)');
+				.replace(/\(\?=\.\)/g, '(?=.?)')
+				.replace(/\[\^\/]/g, '.');
 
 			return matcher;
 		})
