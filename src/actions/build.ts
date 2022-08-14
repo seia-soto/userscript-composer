@@ -2,10 +2,19 @@ import fs from 'node:fs/promises';
 import path from 'path';
 import * as builder from '../builder/index.js';
 import {IBaseOptions} from '../types.js';
+import * as fse from '../utils/fse.js';
 
 export const action = async (options: IBaseOptions) => {
 	if (options.clean) {
 		await fs.rm(options.out, {recursive: true});
+	}
+
+	if (!await fse.isDirectory(options.source)) {
+		throw new Error('The source directory not found: ' + options.source);
+	}
+
+	if (!await fse.isDirectory(options.out)) {
+		await fs.mkdir(options.out, {recursive: true});
 	}
 
 	const scripts = await builder.utils.lookup(options.source);
