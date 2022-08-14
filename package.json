@@ -1,6 +1,6 @@
 {
   "name": "userscript-composer",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Ability to compose userscripts for unified distribution.",
   "main": "out/index.js",
   "type": "module",
