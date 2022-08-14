@@ -4,15 +4,15 @@
 
 Ability to compose userscripts for unified distribution.
 
-## Table of Contents
+**Table of Contents**
 
 - [userscript-composer](#userscript-composer)
-  - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
   - [Quickstart](#quickstart)
   - [Workaround](#workaround)
 - [Usage](#usage)
   - [`userscript-composer build`](#userscript-composer-build)
+  - [`userscript-composer init`](#userscript-composer-init)
 - [Development](#development)
 
 ---
@@ -116,6 +116,13 @@ Options:
 
 Generates unified userscript and standalone userscripts.
 For production use, I recommend adding `--minify`.
+
+## `userscript-composer init`
+
+Create new userscript-composer workspace with `header.txt` template, `config.json` file, and script directory.
+This command runs `userscript-composer build` automatically after setting up.
+
+If you give some arguments for `build` command, it will automatically apply it.
 
 # Development
 
