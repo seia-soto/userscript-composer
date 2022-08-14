@@ -63,3 +63,13 @@ export const compress = async (source: string, additionalOptions: MinifyOptions)
 	// Give some fallbacks
 	return code ?? source;
 };
+
+export const conditional = async (conditional: boolean, source: string) => {
+	if (conditional) {
+		const out = await compress(source, {});
+
+		return out;
+	}
+
+	return source;
+};

@@ -38,7 +38,7 @@ mkdir userscript-composer-playground
 cd userscript-composer-playground
 
 mkdir scripts
-touch header.txt # header.txt will be prepended to composed output
+touch header.txt # header.txt will be prepended to unified output
 
 npm init -y
 npm install -g git+https://github.com/seia-soto/userscript-composer.git
@@ -85,11 +85,11 @@ Every options are changable, so don't worry.
 
 - **/scripts**; directory userscripts located
 - **/out**; directory output located
-- **/header.txt**; file prepended to composed userscript
+- **/header.txt**; file prepended to unified userscript
 
 Also, there are some terms used in this project:
 
-- **Composed userscript**, merged userscript including all subsequent userscripts under **/scripts** folder.
+- **Unified userscript**, merged userscript including all subsequent userscripts under **/scripts** folder.
 - **Standalone userscript**, the standalone version of each userscripts under **/scripts** folder. (Or the term **bundled** maybe familiar to you)
 
 **Trivials**
@@ -114,7 +114,7 @@ Options:
 
 ## `userscript-composer build`
 
-Generates composed userscript and standalone userscripts.
+Generates unified userscript and standalone userscripts.
 For production use, I recommend adding `--minify`.
 
 # Development

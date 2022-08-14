@@ -6,3 +6,8 @@ export interface IBaseOptions {
   minify: boolean,
   clean: boolean
 }
+
+export interface IScript {
+  path: string,
+  content: string
+}

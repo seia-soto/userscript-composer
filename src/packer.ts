@@ -1,13 +1,48 @@
 /**
  * The main reason to split this file with transform.ts is to divide the dependencies.
  */
+import type {BuildOptions} from 'esbuild';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import picomatch from 'picomatch';
 import {compress} from './compressor.js';
-import {build, bundle} from './transform.js';
+import {build, bundle} from './transformer.js';
 import {head, parse, stringify} from './userscript.js';
 import {temporal} from './workdir.js';
+
+/**
+ * Transform style bundle API
+ * @param source The source script
+ * @param additionalOptions Additional options to be applied to esbuild
+ * @returns Bundled script with dependencies
+ */
+export const batch = async (
+	source: string,
+	additionalOptions: BuildOptions,
+) => {
+	const [location, remove] = await temporal();
+	const from = path.join(location, 'source.ts');
+	const to = path.join(location, 'to.js');
+
+	await fs.writeFile(from, source, 'utf8');
+	await bundle({
+		entryPoints: [
+			from,
+		],
+		outfile: to,
+		...additionalOptions,
+	});
+
+	const content = await fs.readFile(to, 'utf8');
+
+	await remove();
+
+	return content;
+};
+
+export interface IPackingOptions {
+	minify: boolean
+}
 
 /**
  * Inject JavaScript version of user-script fragments into complete user-script
@@ -21,7 +56,7 @@ export const pack = async (
     head: string,
     scripts: string[],
   },
-	minify: boolean,
+	options: IPackingOptions,
 ) => {
 	// Head
 	const config = parse(components.head);
@@ -93,10 +128,10 @@ export const pack = async (
 			sourceFile,
 		],
 		outfile: outFile,
-		minify,
+		minify: options.minify,
 	});
 	const out = await fs.readFile(outFile, 'utf8');
-	const minified = minify
+	const minified = options.minify
 		? await compress(out, {})
 		: out;
 
