@@ -114,7 +114,7 @@ Options:
 
 ## `userscript-composer build`
 
-Generates unified userscript and standalone userscripts.
+Generates unified userscript and standalone userscripts from source directory files including `.user.`.
 For production use, I recommend adding `--minify`.
 
 ## `userscript-composer init`
