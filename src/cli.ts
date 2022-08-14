@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import cac from 'cac';
-import * as build from './actions/build.js';
+import * as actions from './actions/index.js';
 
 const cli = cac();
 
@@ -26,7 +26,11 @@ cli
 
 cli
 	.command('build', 'Bundle user-scripts to output directory')
-	.action(build.action);
+	.action(actions.build.action);
+
+cli
+	.command('init', 'Setup new userscript-composer project')
+	.action(actions.init.action);
 
 cli
 	.version('0.0.1')
