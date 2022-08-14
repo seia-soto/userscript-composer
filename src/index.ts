@@ -1,6 +1,7 @@
 // Import * as assets from './assets/index.js';
 import * as builder from './builder/index.js';
 import * as compressor from './compressor.js';
+import * as config from './config.js';
 import * as packer from './packer.js';
 import * as transformer from './transformer.js';
 import * as userscript from './userscript.js';
@@ -12,6 +13,7 @@ export {
 	// Assets,
 	utils,
 	compressor,
+	config,
 	packer,
 	transformer,
 	userscript,

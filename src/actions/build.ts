@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'path';
 import * as builder from '../builder/index.js';
+import * as config from '../config.js';
 import {IBaseOptions} from '../types.js';
 import * as fse from '../utils/fse.js';
 
@@ -16,6 +17,11 @@ export const action = async (options: IBaseOptions) => {
 	if (!await fse.isDirectory(options.out)) {
 		await fs.mkdir(options.out, {recursive: true});
 	}
+
+	options = Object.assign(
+		options,
+		await config.read(),
+	);
 
 	const scripts = await builder.utils.lookup(options.source);
 

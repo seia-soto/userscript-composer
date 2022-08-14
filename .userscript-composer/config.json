@@ -1,0 +1,8 @@
+{
+  "source": "scripts",
+  "out": "dist",
+  "header": "header.txt",
+  "name": "unified",
+  "minify": false,
+  "clean": true
+}

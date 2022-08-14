@@ -15,7 +15,7 @@ export const cwd = process.cwd();
 /**
  * The name of application local working directory
  */
-export const root = '.userscript-composer';
+export const root = '.userscript-composer/workdir';
 
 /**
  * Create new "empty" working directory under current working directory
