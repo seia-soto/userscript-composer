@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 import * as builder from '../builder/index.js';
 import * as config from '../config.js';
-import {IBaseOptions} from '../types.js';
+import {IBaseOptions, IScript} from '../types.js';
+import * as fse from '../utils/fse.js';
 
 export const action = async (options: IBaseOptions) => {
 	if (options.clean) {
@@ -13,14 +14,24 @@ export const action = async (options: IBaseOptions) => {
 		await config.read(),
 	);
 
-	await config.scan(options);
+	if (!await fse.isFile(options.source)) {
+		throw new Error('The source file not found: ' + options.source);
+	}
 
-	const scripts = await builder.utils.lookup(options.source);
+	// Build one standalone userscript
+	const script: IScript = {
+		path: options.source,
+		content: (await fs.readFile(options.source)).toString(),
+	};
 
-	// Build standalone scripts
-	await builder.standalone.batch(scripts, {
-		source: options.source,
-		out: options.out,
+	const where = await builder.standalone.shim(script.path, options.source, options.out);
+	const what = await builder.standalone.build(script, {
 		minify: options.minify,
 	});
+
+	await fs.writeFile(
+		where,
+		what,
+		'utf8',
+	);
 };

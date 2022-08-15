@@ -23,8 +23,18 @@ cli
 	.action(actions.init.action);
 
 cli
-	.command('build', 'Build each user-scripts to output directory using source directory structure')
+	.command('build', 'Build an user-scripts to output file')
+	.option('--source [file]', 'Set source file to build', {
+		default: 'scripts/index.user.js',
+	})
+	.option('--out [file]', 'Set output file for build', {
+		default: 'dist/index.user.js',
+	})
 	.action(actions.build.action);
+
+cli
+	.command('batch', 'Batch build each user-scripts to output directory using source directory structure')
+	.action(actions.batch.action);
 
 cli
 	.command('unify', 'Bundle full of user-scripts to output directory')
