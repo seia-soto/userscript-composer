@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/seia-soto/userscript-composer/compare/v0.0.3...v0.0.5) (2022-08-15)
+
+
+### Features
+
+* divide build and unify command ([514348b](https://github.com/seia-soto/userscript-composer/commit/514348b8e29d77946700aac17c320c5e9c7528f8))
+
 ### 0.0.3 (2022-08-14)
 
 
