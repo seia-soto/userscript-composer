@@ -41,7 +41,13 @@ export const shim = async (
 ) => {
 	const outfile = path.join(
 		out,
-		path.relative(source, filepath),
+		[
+			...path
+				.relative(source, filepath)
+				.split('.')
+				.slice(0, -1),
+			'js',
+		].join('.'),
 	);
 	const outdir = path.dirname(outfile);
 
