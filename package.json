@@ -1,6 +1,6 @@
 {
   "name": "userscript-composer",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Ability to compose userscripts for unified distribution.",
   "main": "out/index.js",
   "type": "module",
@@ -10,7 +10,7 @@
     "build:source": "rm -r out && esbuild `find src \\( -name '*.ts' \\)` --format=esm --platform=node --sourcemap=inline --outdir=out",
     "build:type": "tsc",
     "lint": "eslint --ext .ts src",
-    "version": "standard-version"
+    "release": "standard-version"
   },
   "keywords": [
     "userscript",
