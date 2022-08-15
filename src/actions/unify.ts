@@ -16,8 +16,8 @@ export const action = async (options: IUnifyOptions) => {
 	}
 
 	options = Object.assign(
-		options,
 		await config.read(),
+		options,
 	);
 
 	await config.scan(options);

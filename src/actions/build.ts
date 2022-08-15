@@ -10,8 +10,8 @@ export const action = async (options: IBaseOptions) => {
 	}
 
 	options = Object.assign(
-		options,
 		await config.read(),
+		options,
 	);
 
 	if (!await fse.isFile(options.source)) {
