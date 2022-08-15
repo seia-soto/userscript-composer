@@ -24,3 +24,13 @@ export const read = async () => {
 		throw new Error('Config file is not valid JSON: ' + location);
 	}
 };
+
+export const scan = async (config: IBaseOptions) => {
+	if (!await fse.isDirectory(config.source)) {
+		throw new Error('The source directory not found: ' + config.source);
+	}
+
+	if (!await fse.isDirectory(config.out)) {
+		await fs.mkdir(config.out, {recursive: true});
+	}
+};
