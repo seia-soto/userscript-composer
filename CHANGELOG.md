@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/seia-soto/userscript-composer/compare/v0.0.6...v0.0.7) (2022-08-15)
+
+
+### Bug Fixes
+
+* cli option overrides ([519b23b](https://github.com/seia-soto/userscript-composer/commit/519b23b6e215efe6d3b4e68c2a9a82f654c847f4))
+* invalid output file extension ([f4844d5](https://github.com/seia-soto/userscript-composer/commit/f4844d5585962b83f1e768c6631b53388ef4efa3))
+* npm payload ([4ce1aba](https://github.com/seia-soto/userscript-composer/commit/4ce1abaa89217836d5773a221cce9c35e510a4ef))
+
 ### [0.0.6](https://github.com/seia-soto/userscript-composer/compare/v0.0.5...v0.0.6) (2022-08-15)
 
 ### [0.0.5](https://github.com/seia-soto/userscript-composer/compare/v0.0.3...v0.0.5) (2022-08-15)
