@@ -37,7 +37,7 @@ cli
 	.action(actions.unify.action);
 
 cli
-	.version('0.0.1')
+	.version('0.0.5')
 	.help();
 
 cli.parse();
