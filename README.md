@@ -12,6 +12,7 @@ Ability to compose userscripts for unified distribution.
   - [Commands](#commands)
     - [`userscript-composer init`](#userscript-composer-init)
     - [`userscript-composer build`](#userscript-composer-build)
+    - [`userscript-composer batch`](#userscript-composer-batch)
     - [`userscript-composer unify`](#userscript-composer-unify)
   - [API](#api)
 - [Development](#development)
@@ -123,10 +124,29 @@ This command runs `userscript-composer build` automatically after setting up.
 
 If you give some arguments for `build` command, it will automatically apply it.
 
+```bash
+userscript-composer init [--source [directory]] [--out [directory]] [--minify] [--clean]
+```
+
 ### `userscript-composer build`
 
+Generate standalone userscript from source file.
+
+- Define source file via `--source [file]`.
+- Define out file via `--out [file]`.
+
+```bash
+userscript-composer build [--source [file]] [--out [file]] [--minify] [--clean]
+```
+
+### `userscript-composer batch`
+
+Batch build userscripts from source directory and save bundled userscripts to output directory.
 Generate standalone userscripts from source directory files including `.user.`.
-For production use, I recommend adding `--minify`.
+
+```bash
+userscript-composer batch [--source [directory]] [--out [directory]] [--minify] [--clean]
+```
 
 ### `userscript-composer unify`
 
@@ -134,6 +154,10 @@ Generate unified userscript bundling all userscripts from source directory.
 
 - Define header file location via `--header [filename]`.
 - Define the output file name via `--name [name]`.
+
+```bash
+userscript-composer unify [--source [directory]] [--out [directory]] [--name [name]] [--header [headerfile]] [--minify] [--clean]
+```
 
 ## API
 
