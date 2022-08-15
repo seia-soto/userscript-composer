@@ -1,7 +1,5 @@
 # userscript-composer
 
-> Working In Progress
-
 Ability to compose userscripts for unified distribution.
 
 **Table of Contents**
@@ -11,9 +9,11 @@ Ability to compose userscripts for unified distribution.
   - [Quickstart](#quickstart)
   - [Workaround](#workaround)
 - [Usage](#usage)
-  - [`userscript-composer init`](#userscript-composer-init)
-  - [`userscript-composer build`](#userscript-composer-build)
-  - [`userscript-composer unify`](#userscript-composer-unify)
+  - [Commands](#commands)
+    - [`userscript-composer init`](#userscript-composer-init)
+    - [`userscript-composer build`](#userscript-composer-build)
+    - [`userscript-composer unify`](#userscript-composer-unify)
+  - [API](#api)
 - [Development](#development)
 
 ---
@@ -84,6 +84,8 @@ Then go to development section to continue.
 
 # Usage
 
+## Commands
+
 Before getting started, let's create some folders and files for userscript-composer to work with.
 Every options are changable, so don't worry.
 
@@ -114,24 +116,32 @@ Options:
   -h, --help            Display this message
 ```
 
-## `userscript-composer init`
+### `userscript-composer init`
 
 Create new userscript-composer workspace with `header.txt` template, `config.json` file, and script directory.
 This command runs `userscript-composer build` automatically after setting up.
 
 If you give some arguments for `build` command, it will automatically apply it.
 
-## `userscript-composer build`
+### `userscript-composer build`
 
 Generate standalone userscripts from source directory files including `.user.`.
 For production use, I recommend adding `--minify`.
 
-## `userscript-composer unify`
+### `userscript-composer unify`
 
 Generate unified userscript bundling all userscripts from source directory.
 
 - Define header file location via `--header [filename]`.
 - Define the output file name via `--name [name]`.
+
+## API
+
+We provide the JavaScript API to build from Node.JS application via ES Module format.
+Read more about [ES Module by Lin Clark](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/).
+
+By seeing the [`/src/index.ts`](/src/index.ts), you can see what things are being exported via module.
+Also, every functions necessary required to implement the build action has comment.
 
 # Development
 
