@@ -11,8 +11,9 @@ Ability to compose userscripts for unified distribution.
   - [Quickstart](#quickstart)
   - [Workaround](#workaround)
 - [Usage](#usage)
-  - [`userscript-composer build`](#userscript-composer-build)
   - [`userscript-composer init`](#userscript-composer-init)
+  - [`userscript-composer build`](#userscript-composer-build)
+  - [`userscript-composer unify`](#userscript-composer-unify)
 - [Development](#development)
 
 ---
@@ -41,6 +42,9 @@ mkdir scripts
 touch header.txt # header.txt will be prepended to unified output
 
 npm init -y
+npm install -g userscript-composer
+
+# Or you may use GitHub for latest versions which might have bug fixes for NPM versions
 npm install -g git+https://github.com/seia-soto/userscript-composer.git
 ```
 
@@ -94,7 +98,7 @@ Also, there are some terms used in this project:
 
 **Trivials**
 
-- I am planning to use `.userscript-composer/config` as future config file location. You may ignore the creation of `.userscript-composer` directory at this time.
+- Nothing now.
 
 **Shared options**
 
@@ -104,18 +108,11 @@ The options below are shared in all commands.
 Options:
   --source [directory]  Set source directory to build (default: scripts)
   --out [directory]     Set output directory for build (default: dist)
-  --header [file]       Set header file location to prepend (default: header.txt)
-  --name [name]         Set the name of complete user-script (default: index)
   --minify              Minify the output for production use (default: false)
   --clean               Clean the build directory before build (default: false)
   -v, --version         Display version number
   -h, --help            Display this message
 ```
-
-## `userscript-composer build`
-
-Generates unified userscript and standalone userscripts from source directory files including `.user.`.
-For production use, I recommend adding `--minify`.
 
 ## `userscript-composer init`
 
@@ -123,6 +120,18 @@ Create new userscript-composer workspace with `header.txt` template, `config.jso
 This command runs `userscript-composer build` automatically after setting up.
 
 If you give some arguments for `build` command, it will automatically apply it.
+
+## `userscript-composer build`
+
+Generate standalone userscripts from source directory files including `.user.`.
+For production use, I recommend adding `--minify`.
+
+## `userscript-composer unify`
+
+Generate unified userscript bundling all userscripts from source directory.
+
+- Define header file location via `--header [filename]`.
+- Define the output file name via `--name [name]`.
 
 # Development
 
